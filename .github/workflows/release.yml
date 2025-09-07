@@ -12,15 +12,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: "20.x"
-
-      - name: Build plugin
+      - name: Verify plugin files
         run: |
-          npm install
-          npm run build
+          ls -la main.js manifest.json styles.css
 
       - name: Install GitHub CLI
         run: sudo apt-get install -y gh
