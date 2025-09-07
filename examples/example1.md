@@ -14,19 +14,19 @@
 
 ((tag|custom label)) ((tag|custom label|grey)) ((tag|custom label|orange)) ((tag|custom label|green)) ((tag|custom label|blue)) ((tag|custom label|purple)) ((tag|custom label|red)) ((tag|custom label|yellow))
 
-## Arrow Tags Demo
+## Arrow Tags Demo (Using Custom CSS)
 
 ### Arrow Status Tags
 
-<!-- Arrow-style tags with default colors -->
+<!-- Arrow-style tags using the "arrow" CSS class -->
 
-((<tag|todo)) ((<tag|planned)) ((<tag|in-progress)) ((<tag|doing)) ((<tag|done)) ((<tag|tip)) ((<tag|on-hold)) ((<tag|tbd)) ((<tag|proposed)) ((<tag|draft)) ((<tag|wip)) ((<tag|mvp)) ((<tag|blocked)) ((<tag|canceled)) ((<tag|error)) ((<tag|warning)) ((<tag|warn))
+((tag|todo|arrow)) ((tag|planned|arrow)) ((tag|in-progress|arrow)) ((tag|doing|arrow)) ((tag|done|arrow)) ((tag|tip|arrow)) ((tag|on-hold|arrow)) ((tag|tbd|arrow)) ((tag|proposed|arrow)) ((tag|draft|arrow)) ((tag|wip|arrow)) ((tag|mvp|arrow)) ((tag|blocked|arrow)) ((tag|canceled|arrow)) ((tag|error|arrow)) ((tag|warning|arrow)) ((tag|warn|arrow))
 
 ### Custom Arrow Labels
 
-<!-- Arrow tags with custom labels and default colors -->
+<!-- Arrow tags with custom labels using the "arrow" CSS class -->
 
-((<tag|custom arrow)) ((<tag|custom arrow|grey)) ((<tag|custom arrow|orange)) ((<tag|custom arrow|green)) ((<tag|custom arrow|blue)) ((<tag|custom arrow|purple)) ((<tag|custom arrow|red)) ((<tag|custom arrow|yellow))
+((tag|custom arrow|arrow)) ((tag|my task|arrow)) ((tag|in review|arrow)) ((tag|testing|arrow)) ((tag|deployment|arrow))
 
 ## Custom Color Tags Demo
 
@@ -53,6 +53,6 @@
 
 ### Combination of Styles and Labels
 
-<!-- Tests various combinations of arrows and custom colors -->
+<!-- Tests various combinations of custom colors and arrow styling -->
 
-((tag|Normal Task|)) ((<tag|Arrow Only|)) ((tag|Success Task|success)) ((<tag|Warning Arrow|warning)) ((tag|Custom Style|my-style))
+((tag|Normal Task|)) ((tag|Arrow Task|arrow)) ((tag|Success Task|success)) ((tag|Warning Arrow|warning)) ((tag|Custom Style|my-style))

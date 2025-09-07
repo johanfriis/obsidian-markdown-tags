@@ -12,20 +12,20 @@ const sanitizeForCSS = (text: string): string => {
 
 // Regular expression to match custom tag syntax like ((tag|label|color)) or ((tag/label/color))
 // Supports both | and / as separators
-const tagSyntaxRegex = /\(\(<?tag(?:[\|\/])(?<label>[^\|\/\)]+)(?:[\|\/](?<color>[^\|\/\)]*))?\)\)/g;
+const tagSyntaxRegex = /\(\(tag(?:[\|\/])(?<label>[^\|\/\)]+)(?:[\|\/](?<color>[^\|\/\)]*))?\)\)/g;
 
 
 const escapeHtml = (str: string): string => str.replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char] || char));
 
-function generateTagDecoration(label: string, color?: string, arrow = false): Decoration {
+function generateTagDecoration(label: string, color?: string): Decoration {
 
 	// Sanitize label to create a valid CSS class name
 	const labelClass = sanitizeForCSS(label);
 	// Sanitize color name if provided
 	const colorClass = color ? sanitizeForCSS(color) : '';
 
-	// Combine classes, adding 'bn-arrow-tags' if the arrow flag is true
-	const combinedClasses = `bn-tags ${labelClass} ${colorClass} ${arrow ? 'bn-arrow-tags' : ''}`.trim();
+	// Combine classes
+	const combinedClasses = `bn-tags ${labelClass} ${colorClass}`.trim();
 
 	// Return the decoration with just CSS classes
 	return Decoration.mark({
@@ -97,13 +97,12 @@ export default class tagsPlugin extends Plugin {
 						const { label = '', color = '' } = match.groups ?? {};
 
 						const escapedLabel = escapeHtml(label);
-						const arrow = match[0].startsWith("((<");
-
+	
 						// Apply decoration to hide the leading part
 						builder.add(start, start + match[0].indexOf(label), Decoration.mark({ class: "bn-hidden" }));
 
 						// Apply decoration to the inner text (label)
-						builder.add(start + match[0].indexOf(label), start + match[0].indexOf(label) + label.length, generateTagDecoration(escapedLabel, color, arrow));
+						builder.add(start + match[0].indexOf(label), start + match[0].indexOf(label) + label.length, generateTagDecoration(escapedLabel, color));
 
 						// Apply decoration to hide the trailing part
 						builder.add(start + match[0].indexOf(label) + label.length, end, Decoration.mark({ class: "bn-hidden" }));
@@ -133,10 +132,9 @@ export default class tagsPlugin extends Plugin {
 					// Extract named groups with default values
 					const { label = "", color = "" } = match.groups ?? {};
 					const escapedLabel = escapeHtml(label);
-					const arrow = match[0].startsWith("((<");
 
 					// Generate the styled decoration
-					const decoration = generateTagDecoration(escapedLabel, color, arrow);
+					const decoration = generateTagDecoration(escapedLabel, color);
 
 					// Replace tag syntax with styled span
 					const replacement = `<span class="${decoration.spec.class}">${escapedLabel}</span>`;

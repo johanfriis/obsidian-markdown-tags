@@ -1,6 +1,6 @@
 # Tags for Markdown: Enhanced Styled Labels for Obsidian
 
-Add visual flair to your Markdown documents with custom tag styles! **Tags for Markdown** lets you highlight and style labels within Markdown documents using simple syntax, customizable colors, and optional arrow indicators—all within Obsidian. If you like **Tags for Markdown**, get our extension for [Visual Studio Code](https://github.com/binarynoir/vscode-markdown-tags/)!
+Add visual flair to your Markdown documents with custom tag styles! **Tags for Markdown** lets you highlight and style labels within Markdown documents using simple syntax and customizable colors—all within Obsidian. If you like **Tags for Markdown**, get our extension for [Visual Studio Code](https://github.com/binarynoir/vscode-markdown-tags/)!
 
 [![Support me on Buy Me a Coffee](https://img.shields.io/badge/Support%20me-Buy%20Me%20a%20Coffee-orange?style=for-the-badge&logo=buy-me-a-coffee)](https://buymeacoffee.com/binarynoir)
 [![Support me on Ko-fi](https://img.shields.io/badge/Support%20me-Ko--fi-blue?style=for-the-badge&logo=ko-fi)](https://ko-fi.com/binarynoir)
@@ -30,8 +30,6 @@ You can use either the `|` (pipe) or `/` (slash) character as a separator betwee
 ((tag/label))
 ((tag|label|color-name))
 ((tag/label/color-name))
-((<tag|label)) <!-- Adds an arrow to the left -->
-((<tag/label/color-name)) <!-- Adds an arrow to the left -->
 ```
 
 > **Note:** Both `|` and `/` are supported as separators. Use whichever you prefer or fits your workflow. This is especially useful when using tags within markdown tables.
@@ -56,10 +54,10 @@ Choose from predefined colors (`grey`, `green`, `orange`, etc.) or use custom he
 ((tag|todo)) ((tag|in-progress|warning)) ((tag|done|success))
 ```
 
-#### Arrowed Tags
+#### Arrow-Style Tags (Using Custom CSS Class)
 
 ```markdown
-((<tag|planned)) ((<tag|custom test))
+((tag|planned|arrow)) ((tag|custom test|arrow))
 ```
 
 #### Custom Color Classes
@@ -118,17 +116,17 @@ See Examples Markdown Documents
 
 ---
 
-### With Arrow (using `((<tag|label|color))`)
+### Arrow-Style Tags (Using Custom CSS Class)
 
 #### Custom Arrow Labels
 
-- `((<tag|Custom Arrow|grey))`
-- `((<tag|Review Phase|orange))`
-- `((<tag|Implementation|red))`
-- `((<tag|Testing Phase|blue))`
-- `((<tag|Deployment|green))`
+- `((tag|Custom Arrow|arrow))`
+- `((tag|Review Phase|arrow))`
+- `((tag|Implementation|arrow))`
+- `((tag|Testing Phase|arrow))`
+- `((tag|Deployment|arrow))`
 
-> Arrow tags work with any label, just like regular tags!
+> Arrow tags work with any label by using the `arrow` color class and adding the corresponding CSS!
 
 ---
 
@@ -171,6 +169,58 @@ Since both labels and colors now become CSS classes, you have unlimited customiz
 .bn-tags.info {
     background-color: #0284c7;
     color: white;
+}
+
+/* Example: Arrow-style tags using custom CSS class */
+.bn-tags.arrow {
+    all: unset;
+    all: inherit;
+    display: inline-block;
+    height: 20px;
+    line-height: 20px;
+    right: -6px;
+    position: relative;
+    margin: 0 8px 0 10px;
+    padding: 0 10px 0 12px;
+    border-bottom-left-radius: 2px;
+    border-top-left-radius: 2px;
+    border-bottom-right-radius: 3px;
+    border-top-right-radius: 3px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    color: white !important;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    -webkit-text-fill-color: #ffffff !important;
+    background-color: var(--color-l-gray-80);
+}
+
+.bn-tags.arrow:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -11px;
+    width: 0;
+    height: 0;
+    border-color: transparent;
+    border-radius: 15%;
+    border-style: solid;
+    border-width: 10px 12px 10px 0;
+    border-right-color: var(--color-l-gray-80);
+}
+
+.bn-tags.arrow:after {
+    content: "";
+    position: absolute;
+    top: 7.5px;
+    left: .5px;
+    float: left;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: white;
+    box-shadow: -1px -1px 2px rgba(0, 0, 0, 0.4);
 }
 ```
 
