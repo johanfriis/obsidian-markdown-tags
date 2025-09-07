@@ -9,6 +9,7 @@
 	padding: 0 10px;
 	color: white;
 	text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+	background-color: var(--color-l-gray-80); /* Default background using theme variable */
 
 	&.bn-arrow-tags {
 		all: unset;
@@ -44,6 +45,7 @@
 			border-radius: 15%;
 			border-style: solid;
 			border-width: 10px 12px 10px 0;
+			border-right-color: var(--color-l-gray-80); /* Default arrow color using theme variable */
 		}
 
 		&:after {
@@ -60,134 +62,46 @@
 		}
 	}
 
-	&.grey {
-		background-color: #6e6e6e;
+	/* Predefined semantic status colors using Obsidian theme variables */
+	&.success {
+		background-color: var(--color-l-green-30);
 
 		&:before {
-			border-right-color: #6e6e6e;
+			border-right-color: var(--color-l-green-30);
 		}
 	}
 
-	&.orange {
-		background-color: #ff7f00;
-
-		&:before {
-			border-right-color: #ff7f00;
-		}
-	}
-
-	&.green {
-		background-color: #42b983;
-
-		&:before {
-			border-right-color: #42b983;
-		}
-	}
-
-	&.blue {
-		background-color: #7aa0dd;
-
-		&:before {
-			border-right-color: #7aa0dd;
-		}
-	}
-
-	&.purple {
-		background-color: #7a5add;
-
-		&:before {
-			border-right-color: #7a5add;
-		}
-	}
-
-	&.yellow {
-		background-color: #e7c000;
-
-		&:before {
-			border-right-color: #e7c000;
-		}
-	}
-
-	&.red {
-		background-color: #da5961;
-
-		&:before {
-			border-right-color: #da5961;
-		}
-	}
-
-	/* Legacy support for common tag names - these can be overridden by users */
-	&.todo,
-	&.planned {
-		background-color: #6e6e6e;
-
-		&:before {
-			border-right-color: #6e6e6e;
-		}
-	}
-
-	&.doing,
-	&.in-progress {
-		background-color: #ff7f00;
-
-		&:before {
-			border-right-color: #ff7f00;
-		}
-	}
-
-	&.done,
-	&.tip {
-		background-color: #42b983;
-
-		&:before {
-			border-right-color: #42b983;
-		}
-	}
-
-	&.on-hold,
-	&.tbd,
-	&.wip,
-	&.proposed,
-	&.draft {
-		background-color: #7aa0dd;
-
-		&:before {
-			border-right-color: #7aa0dd;
-		}
-	}
-
-	&.mvp {
-		background-color: #7a5add;
-
-		&:before {
-			border-right-color: #7a5add;
-		}
-	}
-
-	&.warn,
 	&.warning {
-		background-color: #e7c000;
+		background-color: var(--color-l-orange-30);
 
 		&:before {
-			border-right-color: #e7c000;
+			border-right-color: var(--color-l-orange-30);
 		}
 	}
 
-	&.blocked,
-	&.canceled,
-	&.error {
-		background-color: #da5961;
+	&.error,
+	&.danger {
+		background-color: var(--color-l-red-30);
 
 		&:before {
-			border-right-color: #da5961;
+			border-right-color: var(--color-l-red-30);
 		}
 	}
 
-	&.tbd,
-	&.mvp,
-	&.wip,
-	&.draft {
-		text-transform: uppercase;
+	&.info {
+		background-color: var(--color-l-blue-30);
+
+		&:before {
+			border-right-color: var(--color-l-blue-30);
+		}
+	}
+
+	&.accent {
+		background-color: var(--color-accent);
+
+		&:before {
+			border-right-color: var(--color-accent);
+		}
 	}
 
 	& + & {

@@ -2,12 +2,9 @@ import { Plugin, MarkdownPostProcessorContext } from "obsidian";
 import { EditorView, Decoration, DecorationSet, ViewPlugin, ViewUpdate } from "@codemirror/view";
 import { RangeSetBuilder } from "@codemirror/state";
 
-// Define color map for tags
-const colorMap = ["grey", "green", "yellow", "orange", "blue", "purple", "red"];
-
-// Function to sanitize label for use as CSS class name
-const sanitizeLabelForCSS = (label: string): string => {
-	return label.toLowerCase()
+// Function to sanitize any string for use as CSS class name
+const sanitizeForCSS = (text: string): string => {
+	return text.toLowerCase()
 		.replace(/[^a-z0-9-_]/g, '-')
 		.replace(/-+/g, '-')
 		.replace(/^-|-$/g, '');
@@ -19,16 +16,16 @@ const tagSyntaxRegex = /\(\(<?tag(?:[\|\/])(?<label>[^\|\/\)]+)(?:[\|\/](?<bgcol
 
 const isValidHexColor = (color: string): boolean => /^#([0-9A-Fa-f]{3}){1,2}$/.test(color);
 
-const isValidColor = (color: string): boolean => isValidHexColor(color) || colorMap.includes(color.toLowerCase());
+const isValidColor = (color: string): boolean => isValidHexColor(color) || Boolean(color && color.trim());
 
 const escapeHtml = (str: string): string => str.replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char] || char));
 
 function generateTagDecoration(label: string, bgcolor?: string, fgcolor?: string, arrow = false): Decoration {
 
 	// Sanitize label to create a valid CSS class name
-	const labelClass = sanitizeLabelForCSS(label);
-	// Determine the background color class from the color map, defaulting to 'grey'
-	const bgColorClass = bgcolor && colorMap.includes(bgcolor.toLowerCase()) ? bgcolor.toLowerCase() : 'grey';
+	const labelClass = sanitizeForCSS(label);
+	// Sanitize background color name if provided
+	const bgColorClass = bgcolor ? sanitizeForCSS(bgcolor) : '';
 	// Check if a valid custom background color is provided
 	const bgCustomColor = bgcolor && isValidHexColor(bgcolor) ? bgcolor : null;
 	// Check if a valid custom foreground color is provided

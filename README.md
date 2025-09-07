@@ -76,7 +76,7 @@ Choose from predefined colors (`grey`, `green`, `orange`, etc.) or use custom he
 
 **Any label is now supported!** The plugin automatically converts your label into a CSS class name, allowing unlimited customization. Common legacy tags like **todo**, **planned**, **in-progress**, **doing**, **done**, **tip**, **on-hold**, **tbd**, **proposed**, **draft**, **wip**, **mvp**, **blocked**, **canceled**, **error**, **warning**, **warn** still work with predefined styling.
 
-For each tag, the following colors are available: **grey**, **green**, **yellow**, **orange**, **blue**, **purple**, **red**.
+**Any color name is now supported!** Use semantic names like **warning**, **alert**, **success**, **critical**, etc., or the classic predefined colors: **grey**, **green**, **yellow**, **orange**, **blue**, **purple**, **red**. If no CSS exists for your color name, it will fallback to grey styling.
 
 See Examples Markdown Documents
 
@@ -97,17 +97,26 @@ See Examples Markdown Documents
 - `((tag|done|green))` - Completed task
 - `((tag|blocked|red))` - Blocked task
 
-#### Color Examples (Any Label + Any Color)
+#### Predefined Color Examples
 
 - `((tag|YOUR_LABEL|grey))`
-- `((tag|YOUR_LABEL|green))`
+- `((tag|YOUR_LABEL|green))`  
 - `((tag|YOUR_LABEL|yellow))`
 - `((tag|YOUR_LABEL|orange))`
 - `((tag|YOUR_LABEL|blue))`
 - `((tag|YOUR_LABEL|purple))`
 - `((tag|YOUR_LABEL|red))`
 
-> Replace `YOUR_LABEL` with any text you want. Special characters will be automatically converted to valid CSS class names.
+#### Semantic Color Examples (New!)
+
+- `((tag|Bug Report|critical))`
+- `((tag|Security Issue|alert))`
+- `((tag|Enhancement|success))`
+- `((tag|Documentation|info))`
+- `((tag|Needs Attention|warning))`
+- `((tag|High Priority|urgent))`
+
+> Replace `YOUR_LABEL` with any text and use any color name you want. Both labels and colors are automatically converted to valid CSS class names.
 
 ---
 
@@ -129,7 +138,7 @@ See Examples Markdown Documents
 
 ### CSS Integration
 
-Since any label now becomes a CSS class, you can create custom styles for your specific labels. For example:
+Since both labels and colors now become CSS classes, you have unlimited customization possibilities:
 
 ```css
 /* Custom styling for specific labels */
@@ -143,9 +152,31 @@ Since any label now becomes a CSS class, you can create custom styles for your s
     font-weight: bold;
     animation: pulse 1s infinite;
 }
+
+/* Custom styling for semantic color names */
+.bn-tags.critical {
+    background-color: #dc2626;
+    color: white;
+    font-weight: bold;
+}
+
+.bn-tags.success {
+    background-color: #16a34a;
+    color: white;
+}
+
+.bn-tags.warning {
+    background-color: #ea580c;
+    color: white;
+}
+
+.bn-tags.info {
+    background-color: #0284c7;
+    color: white;
+}
 ```
 
-Labels are automatically sanitized to valid CSS class names (spaces become hyphens, special characters are removed).
+Both labels and colors are automatically sanitized to valid CSS class names (spaces become hyphens, special characters are removed).
 
 ### Error Handling
 
