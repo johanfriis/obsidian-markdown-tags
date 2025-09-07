@@ -9,7 +9,7 @@
 	padding: 0 10px;
 	color: white;
 	text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-	background-color: var(--color-l-gray-80); /* Default background using theme variable */
+	background-color: var(--color-base-40);
 
 
 	/* Predefined semantic status colors using Obsidian theme variables */
@@ -58,6 +58,7 @@
 		margin-left: 5px;
 	}
 }
+
 .bn-hidden {
 	display: none;
 }
