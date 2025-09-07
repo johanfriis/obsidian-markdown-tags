@@ -16,7 +16,7 @@ Highlight and style tags with ease using predefined or custom styles.
 
 ### 🖌️ Customizable Colors
 
-Use predefined colors or specify custom hex codes for both background and foreground colors, enabling unlimited styling options.
+Use semantic color names or create your own custom color classes through CSS for unlimited styling options.
 
 ### 📄 Flexible Syntax
 
@@ -28,12 +28,10 @@ You can use either the `|` (pipe) or `/` (slash) character as a separator betwee
 ```markdown
 ((tag|label))
 ((tag/label))
-((tag|label|background-color))
-((tag/label/background-color))
-((tag|label|background-color|foreground-color))
-((tag/label/background-color/foreground-color))
+((tag|label|color-name))
+((tag/label/color-name))
 ((<tag|label)) <!-- Adds an arrow to the left -->
-((<tag/label)) <!-- Adds an arrow to the left -->
+((<tag/label/color-name)) <!-- Adds an arrow to the left -->
 ```
 
 > **Note:** Both `|` and `/` are supported as separators. Use whichever you prefer or fits your workflow. This is especially useful when using tags within markdown tables.
@@ -55,7 +53,7 @@ Choose from predefined colors (`grey`, `green`, `orange`, etc.) or use custom he
 #### Status Tags
 
 ```markdown
-((tag|todo)) ((tag|in-progress|#ffcc00)) ((tag|done|#28a745|#ffffff))
+((tag|todo)) ((tag|in-progress|warning)) ((tag|done|success))
 ```
 
 #### Arrowed Tags
@@ -64,10 +62,10 @@ Choose from predefined colors (`grey`, `green`, `orange`, etc.) or use custom he
 ((<tag|planned)) ((<tag|custom test))
 ```
 
-#### Customizing Colors
+#### Custom Color Classes
 
 ```markdown
-((tag|background|#ff4500)) ((tag|foreground||#ff6347)) ((tag|both colors|#32cd32|#ffffff))
+((tag|Critical Task|critical)) ((tag|My Project|my-theme)) ((tag|Urgent|urgent))
 ```
 
 ---
@@ -76,7 +74,7 @@ Choose from predefined colors (`grey`, `green`, `orange`, etc.) or use custom he
 
 **Any label is now supported!** The plugin automatically converts your label into a CSS class name, allowing unlimited customization. Common legacy tags like **todo**, **planned**, **in-progress**, **doing**, **done**, **tip**, **on-hold**, **tbd**, **proposed**, **draft**, **wip**, **mvp**, **blocked**, **canceled**, **error**, **warning**, **warn** still work with predefined styling.
 
-**Any color name is now supported!** Use semantic names like **warning**, **alert**, **success**, **critical**, etc., or the classic predefined colors: **grey**, **green**, **yellow**, **orange**, **blue**, **purple**, **red**. If no CSS exists for your color name, it will fallback to grey styling.
+**Any color name is now supported!** Use semantic names like **success**, **warning**, **error**, **info**, **accent**, or create your own custom color classes. If no CSS exists for your color name, it will use the default theme styling.
 
 See Examples Markdown Documents
 
@@ -120,7 +118,7 @@ See Examples Markdown Documents
 
 ---
 
-### With Arrow (using `((<tag|label|bgcolor))`)
+### With Arrow (using `((<tag|label|color))`)
 
 #### Custom Arrow Labels
 

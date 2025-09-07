@@ -30,29 +30,29 @@
 
 ## Custom Color Tags Demo
 
-### Hex Color Customization
+### Semantic Color Usage
 
-<!-- Tags with custom background and foreground colors -->
+<!-- Tags with semantic color classes -->
 
-((tag|mvp|#008000)) ((tag|mvp||#90ee90)) ((tag|mvp|#008000|#90ee90))
+((tag|Success|success)) ((tag|Warning|warning)) ((tag|Error|error)) ((tag|Info|info)) ((tag|Accent|accent))
 
-### Mixed Color Customizations
+### Custom Color Classes
 
-<!-- Demonstrates various combinations of custom background and foreground colors -->
+<!-- Demonstrates custom color class usage -->
 
-((tag|custom bg|#007bff)) ((tag|custom fg||#ff1493)) ((tag|custom colors|#007bff|#ff1493))
+((tag|Critical Issue|critical)) ((tag|My Theme|my-theme)) ((tag|Project Alpha|project-alpha))
 
 ### Complex Tag Styling
 
-<!-- Examples with specific styling combinations to test edge cases -->
+<!-- Examples with custom styling combinations -->
 
-((tag|long label for testing|#222222|#ffffff))
-((tag|no-bg|)) ((tag|only-fg||#ff6347))
+((tag|Long Label For Testing|special-theme))
+((tag|Custom Project|custom-project)) ((tag|Important Note|important))
 
 ## Mixed Usage and Custom Labels
 
 ### Combination of Styles and Labels
 
-<!-- Tests various combinations of arrows, custom colors, and labels -->
+<!-- Tests various combinations of arrows and custom colors -->
 
-((tag|normal)) ((<tag|arrow only)) ((tag|bg only|#1e90ff)) ((<tag|fg only||#ff69b4)) ((tag|all styles|#8a2be2|#ffdab9))
+((tag|Normal Task|)) ((<tag|Arrow Only|)) ((tag|Success Task|success)) ((<tag|Warning Arrow|warning)) ((tag|Custom Style|my-style))

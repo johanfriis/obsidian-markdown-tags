@@ -10,39 +10,26 @@ const sanitizeForCSS = (text: string): string => {
 		.replace(/^-|-$/g, '');
 };
 
-// Regular expression to match custom tag syntax like ((tag|label|bgcolor|fgcolor)) or ((tag/label/bgcolor/fgcolor))
+// Regular expression to match custom tag syntax like ((tag|label|color)) or ((tag/label/color))
 // Supports both | and / as separators
-const tagSyntaxRegex = /\(\(<?tag(?:[\|\/])(?<label>[^\|\/\)]+)(?:[\|\/](?<bgcolor>[^\|\/\)]*))?(?:[\|\/](?<fgcolor>[^\|\/\)]*))?\)\)/g;
+const tagSyntaxRegex = /\(\(<?tag(?:[\|\/])(?<label>[^\|\/\)]+)(?:[\|\/](?<color>[^\|\/\)]*))?\)\)/g;
 
-const isValidHexColor = (color: string): boolean => /^#([0-9A-Fa-f]{3}){1,2}$/.test(color);
-
-const isValidColor = (color: string): boolean => isValidHexColor(color) || Boolean(color && color.trim());
 
 const escapeHtml = (str: string): string => str.replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char] || char));
 
-function generateTagDecoration(label: string, bgcolor?: string, fgcolor?: string, arrow = false): Decoration {
+function generateTagDecoration(label: string, color?: string, arrow = false): Decoration {
 
 	// Sanitize label to create a valid CSS class name
 	const labelClass = sanitizeForCSS(label);
-	// Sanitize background color name if provided
-	const bgColorClass = bgcolor ? sanitizeForCSS(bgcolor) : '';
-	// Check if a valid custom background color is provided
-	const bgCustomColor = bgcolor && isValidHexColor(bgcolor) ? bgcolor : null;
-	// Check if a valid custom foreground color is provided
-	const fgCustomColor = fgcolor && isValidHexColor(fgcolor) ? fgcolor : null;
+	// Sanitize color name if provided
+	const colorClass = color ? sanitizeForCSS(color) : '';
 
 	// Combine classes, adding 'bn-arrow-tags' if the arrow flag is true
-	const combinedClasses = `bn-tags ${labelClass} ${bgColorClass} ${arrow ? 'bn-arrow-tags' : ''}`.trim();
+	const combinedClasses = `bn-tags ${labelClass} ${colorClass} ${arrow ? 'bn-arrow-tags' : ''}`.trim();
 
-	// Build inline style if custom background or foreground colors are provided
-	const style = `${bgCustomColor ? `background-color: ${bgCustomColor};` : ''}${fgCustomColor ? ` color: ${fgCustomColor};` : ''}`;
-
-	// Return the decoration with the combined classes and inline style attributes
+	// Return the decoration with just CSS classes
 	return Decoration.mark({
-		class: combinedClasses,
-		attributes: {
-			style: style
-		}
+		class: combinedClasses
 	});
 }
 
@@ -107,18 +94,16 @@ export default class tagsPlugin extends Plugin {
 						}
 
 						// Extract named groups with default values
-						const { label = '', bgcolor = '', fgcolor = '' } = match.groups ?? {};
+						const { label = '', color = '' } = match.groups ?? {};
 
 						const escapedLabel = escapeHtml(label);
-						const validBgColor = bgcolor && isValidColor(bgcolor) ? bgcolor : '';
-						const validFgColor = fgcolor && isValidColor(fgcolor) ? fgcolor : '';
 						const arrow = match[0].startsWith("((<");
 
 						// Apply decoration to hide the leading part
 						builder.add(start, start + match[0].indexOf(label), Decoration.mark({ class: "bn-hidden" }));
 
 						// Apply decoration to the inner text (label)
-						builder.add(start + match[0].indexOf(label), start + match[0].indexOf(label) + label.length, generateTagDecoration(escapedLabel, validBgColor, validFgColor, arrow));
+						builder.add(start + match[0].indexOf(label), start + match[0].indexOf(label) + label.length, generateTagDecoration(escapedLabel, color, arrow));
 
 						// Apply decoration to hide the trailing part
 						builder.add(start + match[0].indexOf(label) + label.length, end, Decoration.mark({ class: "bn-hidden" }));
@@ -146,17 +131,15 @@ export default class tagsPlugin extends Plugin {
 				while ((match = tagSyntaxRegex.exec(originalText)) !== null) {
 					matchFound = true;
 					// Extract named groups with default values
-					const { label = "", bgcolor = "", fgcolor = "" } = match.groups ?? {};
+					const { label = "", color = "" } = match.groups ?? {};
 					const escapedLabel = escapeHtml(label);
-					const validBgColor = bgcolor && isValidColor(bgcolor) ? bgcolor : "";
-					const validFgColor = fgcolor && isValidColor(fgcolor) ? fgcolor : "";
 					const arrow = match[0].startsWith("((<");
 
 					// Generate the styled decoration
-					const decoration = generateTagDecoration(escapedLabel, validBgColor, validFgColor, arrow);
+					const decoration = generateTagDecoration(escapedLabel, color, arrow);
 
 					// Replace tag syntax with styled span
-					const replacement = `<span class="${decoration.spec.class}" style="${decoration.spec.attributes.style}">${escapedLabel}</span>`;
+					const replacement = `<span class="${decoration.spec.class}">${escapedLabel}</span>`;
 					const escapedMatch = escapeHtml(match[0]); // Escape the match to handle HTML entities
 					updatedHTML = updatedHTML.replace(escapedMatch, replacement);
 				}
