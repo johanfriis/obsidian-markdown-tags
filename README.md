@@ -12,18 +12,18 @@ Add visual flair to your Markdown documents with custom tag styles! **Tags for M
 
 ### ✨ Simple Syntax
 
-Transform any text into styled tags:
+Transform any text into styled badges:
 
 ```markdown
-((tag/label))
-((tag/label/color-class))
+((badge/content))
+((badge/content/style-class))
 ```
 
 ### 🎨 CSS-Based Styling  
 
 Everything becomes CSS classes for unlimited customization:
-- `((tag/my task))` → `.bn-tags.my-task`
-- `((tag/urgent/warning))` → `.bn-tags.urgent.warning`
+- `((badge/my task))` → `.bn-badge.my-task`
+- `((badge/urgent/warning))` → `.bn-badge.urgent.warning`
 
 ### 🌈 Built-in Semantic Colors
 
@@ -40,57 +40,57 @@ Five ready-to-use colors: `success`, `warning`, `error`, `info`, `accent`
 ### Quick Examples
 
 ```markdown
-((tag/todo))                    <!-- Basic tag -->
-((tag/urgent/warning))          <!-- With built-in color -->
-((tag/my project/custom))       <!-- With custom color class -->
+((badge/todo))                    <!-- Basic badge -->
+((badge/urgent/warning))          <!-- With built-in style -->
+((badge/my project/custom))       <!-- With custom style class -->
 ```
 
 ---
 
 ## How It Works
 
-The plugin transforms `((tag/label/color))` into `<span class="bn-tags label color">label</span>`.
+The plugin transforms `((badge/content/style))` into `<span class="bn-badge content style">content</span>`.
 
 **Built-in Colors**: `success` (green), `warning` (orange), `error` (red), `info` (blue), `accent` (theme color)
 
-**Everything else is CSS classes** - add your own styling for any custom color names.
+**Everything else is CSS classes** - add your own styling for any custom style names.
 
 ## CSS Customization
 
-Add custom styling for any label or color name:
+Add custom styling for any content or style name:
 
 ```css
-/* Style specific labels */
-.bn-tags.urgent { 
+/* Style specific content */
+.bn-badge.urgent { 
     background-color: #dc2626; 
     animation: pulse 2s infinite; 
 }
 
-.bn-tags.completed { 
+.bn-badge.completed { 
     background-color: #16a34a; 
     text-decoration: line-through; 
 }
 
-/* Style custom color classes */  
-.bn-tags.priority {
+/* Style custom style classes */  
+.bn-badge.priority {
     background-color: #f59e0b;
     font-weight: bold;
 }
 
-.bn-tags.critical {
+.bn-badge.critical {
     background-color: #dc2626;
     color: white;
     border: 2px solid #991b1b;
 }
 
 /* Arrow-style example */
-.bn-tags.arrow {
+.bn-badge.arrow {
     position: relative;
     margin-left: 15px;
     border-radius: 0 4px 4px 0;
 }
 
-.bn-tags.arrow:before {
+.bn-badge.arrow:before {
     content: "";
     position: absolute;
     left: -8px;
@@ -101,9 +101,9 @@ Add custom styling for any label or color name:
 ```
 
 **Usage:**
-- `((tag/urgent task/urgent))` → `.bn-tags.urgent-task.urgent`
-- `((tag/done/completed))` → `.bn-tags.done.completed`  
-- `((tag/next/arrow))` → `.bn-tags.next.arrow`
+- `((badge/urgent task/urgent))` → `.bn-badge.urgent-task.urgent`
+- `((badge/done/completed))` → `.bn-badge.done.completed`  
+- `((badge/next/arrow))` → `.bn-badge.next.arrow`
 
 Text is sanitized: spaces→hyphens, special chars removed.
 

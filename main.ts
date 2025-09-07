@@ -10,17 +10,17 @@ const sanitizeForCSS = (text: string): string => {
 		.replace(/^-|-$/g, '');
 };
 
-// Match ((tag/label/color)) syntax and extract label/color parts
-const tagSyntaxRegex = /\(\(tag\/(?<label>[^\/\)]+)(?:\/(?<color>[^\/\)]*))?\)\)/g;
+// Match ((badge/content/style)) syntax and extract content/style parts
+const badgeSyntaxRegex = /\(\(badge\/(?<content>[^\/\)]+)(?:\/(?<style>[^\/\)]*))?\)\)/g;
 
 // Prevent XSS by escaping HTML entities for innerHTML insertion
 const escapeHtml = (str: string): string => str.replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char] || char));
 
-// Create CodeMirror decoration with CSS classes for tag styling
-function generateTagDecoration(label: string, color?: string): Decoration {
-	const labelClass = sanitizeForCSS(label);
-	const colorClass = color ? sanitizeForCSS(color) : '';
-	const combinedClasses = `bn-tags ${labelClass} ${colorClass}`.trim();
+// Create CodeMirror decoration with CSS classes for badge styling
+function generateBadgeDecoration(content: string, style?: string): Decoration {
+	const contentClass = sanitizeForCSS(content);
+	const styleClass = style ? sanitizeForCSS(style) : '';
+	const combinedClasses = `bn-badge ${contentClass} ${styleClass}`.trim();
 
 	// Return the decoration with just CSS classes
 	return Decoration.mark({
@@ -28,14 +28,14 @@ function generateTagDecoration(label: string, color?: string): Decoration {
 	});
 }
 
-export default class tagsPlugin extends Plugin {
+export default class BadgePlugin extends Plugin {
 	async onload() {
-		this.registerEditorExtension(this.editModeTagsHighlighter());
-		this.registerMarkdownPostProcessor(this.viewModeTagsHighlighter());
+		this.registerEditorExtension(this.editModeBadgeHighlighter());
+		this.registerMarkdownPostProcessor(this.viewModeBadgeHighlighter());
 	}
 
-	// Handle tag styling in edit mode using CodeMirror decorations
-	private editModeTagsHighlighter() {
+	// Handle badge styling in edit mode using CodeMirror decorations  
+	private editModeBadgeHighlighter() {
 		return ViewPlugin.fromClass(class {
 			decorations: DecorationSet;
 
@@ -75,24 +75,21 @@ export default class tagsPlugin extends Plugin {
 						return false;
 					};
 
-					while ((match = tagSyntaxRegex.exec(text)) !== null) {
+					while ((match = badgeSyntaxRegex.exec(text)) !== null) {
 						const start = from + (match.index ?? 0);
 						const end = start + match[0].length;
 
-						// Skip if cursor is editing this tag or tag is in code block
+						// Skip if cursor is editing this badge or badge is in code block
 						if (cursorPos >= start && cursorPos <= end || (isInCodeBlock(start))) {
 							continue;
 						}
 
-						const { label = '', color = '' } = match.groups ?? {};
-						const escapedLabel = escapeHtml(label);
+						const { content = '', style = '' } = match.groups ?? {};
+						const escapedContent = escapeHtml(content);
 	
-						// Apply decoration to hide the leading part
-						builder.add(start, start + match[0].indexOf(label), Decoration.mark({ class: "bn-hidden" }));
-						// Apply decoration to the inner text (label)
-						builder.add(start + match[0].indexOf(label), start + match[0].indexOf(label) + label.length, generateTagDecoration(escapedLabel, color));
-						// Apply decoration to hide the trailing part
-						builder.add(start + match[0].indexOf(label) + label.length, end, Decoration.mark({ class: "bn-hidden" }));
+						builder.add(start, start + match[0].indexOf(content), Decoration.mark({ class: "bn-hidden" }));
+						builder.add(start + match[0].indexOf(content), start + match[0].indexOf(content) + content.length, generateBadgeDecoration(escapedContent, style));
+						builder.add(start + match[0].indexOf(content) + content.length, end, Decoration.mark({ class: "bn-hidden" }));
 					}
 				}
 
@@ -101,32 +98,31 @@ export default class tagsPlugin extends Plugin {
 		}, { decorations: v => v.decorations });
 	}
 
-	// Handle tag styling in reading view by processing HTML content
-	private viewModeTagsHighlighter() {
+	// Handle badge styling in reading view by processing HTML content
+	private viewModeBadgeHighlighter() {
 		return (el: HTMLElement, ctx: MarkdownPostProcessorContext) => {
-			const tags = Array.from(el.querySelectorAll("p, li, span, div, td, th"));
+			const elements = Array.from(el.querySelectorAll("p, li, span, div, td, th"));
 
-			tags.forEach(tagElement => {
-				const originalText = tagElement.textContent;
+			elements.forEach(element => {
+				const originalText = element.textContent;
 				if (!originalText) return;
 
 				let match: RegExpExecArray | null;
-				let updatedHTML = tagElement.innerHTML;
+				let updatedHTML = element.innerHTML;
 				let matchFound = false;
 
-				// Process matches in the text content
-				while ((match = tagSyntaxRegex.exec(originalText)) !== null) {
+				while ((match = badgeSyntaxRegex.exec(originalText)) !== null) {
 					matchFound = true;
-					const { label = "", color = "" } = match.groups ?? {};
-					const escapedLabel = escapeHtml(label);
-					const decoration = generateTagDecoration(escapedLabel, color);
-					const replacement = `<span class="${decoration.spec.class}">${escapedLabel}</span>`;
+					const { content = "", style = "" } = match.groups ?? {};
+					const escapedContent = escapeHtml(content);
+					const decoration = generateBadgeDecoration(escapedContent, style);
+					const replacement = `<span class="${decoration.spec.class}">${escapedContent}</span>`;
 					const escapedMatch = escapeHtml(match[0]);
 					updatedHTML = updatedHTML.replace(escapedMatch, replacement);
 				}
 
 				if (matchFound) {
-					tagElement.innerHTML = updatedHTML;
+					element.innerHTML = updatedHTML;
 				}
 			});
 		};
