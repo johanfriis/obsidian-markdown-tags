@@ -60,8 +60,6 @@
 		}
 	}
 
-	&.todo,
-	&.planned,
 	&.grey {
 		background-color: #6e6e6e;
 
@@ -70,8 +68,6 @@
 		}
 	}
 
-	&.doing,
-	&.in-progress,
 	&.orange {
 		background-color: #ff7f00;
 
@@ -80,9 +76,67 @@
 		}
 	}
 
-	&.done,
-	&.tip,
 	&.green {
+		background-color: #42b983;
+
+		&:before {
+			border-right-color: #42b983;
+		}
+	}
+
+	&.blue {
+		background-color: #7aa0dd;
+
+		&:before {
+			border-right-color: #7aa0dd;
+		}
+	}
+
+	&.purple {
+		background-color: #7a5add;
+
+		&:before {
+			border-right-color: #7a5add;
+		}
+	}
+
+	&.yellow {
+		background-color: #e7c000;
+
+		&:before {
+			border-right-color: #e7c000;
+		}
+	}
+
+	&.red {
+		background-color: #da5961;
+
+		&:before {
+			border-right-color: #da5961;
+		}
+	}
+
+	/* Legacy support for common tag names - these can be overridden by users */
+	&.todo,
+	&.planned {
+		background-color: #6e6e6e;
+
+		&:before {
+			border-right-color: #6e6e6e;
+		}
+	}
+
+	&.doing,
+	&.in-progress {
+		background-color: #ff7f00;
+
+		&:before {
+			border-right-color: #ff7f00;
+		}
+	}
+
+	&.done,
+	&.tip {
 		background-color: #42b983;
 
 		&:before {
@@ -94,8 +148,7 @@
 	&.tbd,
 	&.wip,
 	&.proposed,
-	&.draft,
-	&.blue {
+	&.draft {
 		background-color: #7aa0dd;
 
 		&:before {
@@ -103,8 +156,7 @@
 		}
 	}
 
-	&.mvp,
-	&.purple {
+	&.mvp {
 		background-color: #7a5add;
 
 		&:before {
@@ -113,12 +165,21 @@
 	}
 
 	&.warn,
-	&.warning,
-	&.yellow {
+	&.warning {
 		background-color: #e7c000;
 
 		&:before {
 			border-right-color: #e7c000;
+		}
+	}
+
+	&.blocked,
+	&.canceled,
+	&.error {
+		background-color: #da5961;
+
+		&:before {
+			border-right-color: #da5961;
 		}
 	}
 
@@ -127,17 +188,6 @@
 	&.wip,
 	&.draft {
 		text-transform: uppercase;
-	}
-
-	&.blocked,
-	&.canceled,
-	&.error,
-	&.red {
-		background-color: #da5961;
-
-		&:before {
-			border-right-color: #da5961;
-		}
 	}
 
 	& + & {

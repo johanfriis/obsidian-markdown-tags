@@ -2,13 +2,16 @@ import { Plugin, MarkdownPostProcessorContext } from "obsidian";
 import { EditorView, Decoration, DecorationSet, ViewPlugin, ViewUpdate } from "@codemirror/view";
 import { RangeSetBuilder } from "@codemirror/state";
 
-// Define label and color maps for tags
-const labelMap = [
-	"todo", "planned", "in-progress", "doing", "done", "tip",
-	"on-hold", "tbd", "proposed", "draft", "wip", "mvp",
-	"blocked", "canceled", "error", "warning", "warn"
-];
+// Define color map for tags
 const colorMap = ["grey", "green", "yellow", "orange", "blue", "purple", "red"];
+
+// Function to sanitize label for use as CSS class name
+const sanitizeLabelForCSS = (label: string): string => {
+	return label.toLowerCase()
+		.replace(/[^a-z0-9-_]/g, '-')
+		.replace(/-+/g, '-')
+		.replace(/^-|-$/g, '');
+};
 
 // Regular expression to match custom tag syntax like ((tag|label|bgcolor|fgcolor)) or ((tag/label/bgcolor/fgcolor))
 // Supports both | and / as separators
@@ -22,8 +25,8 @@ const escapeHtml = (str: string): string => str.replace(/[&<>"']/g, char => ({ '
 
 function generateTagDecoration(label: string, bgcolor?: string, fgcolor?: string, arrow = false): Decoration {
 
-	// Determine if the label is in the predefined label map
-	const labelClass = labelMap.includes(label.toLowerCase()) ? label.toLowerCase() : '';
+	// Sanitize label to create a valid CSS class name
+	const labelClass = sanitizeLabelForCSS(label);
 	// Determine the background color class from the color map, defaulting to 'grey'
 	const bgColorClass = bgcolor && colorMap.includes(bgcolor.toLowerCase()) ? bgcolor.toLowerCase() : 'grey';
 	// Check if a valid custom background color is provided

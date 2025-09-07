@@ -74,9 +74,7 @@ Choose from predefined colors (`grey`, `green`, `orange`, etc.) or use custom he
 
 ## Tags and Colors
 
-Available supported tags: **todo**, **planned**, **in-progress**, **doing**, **done**, **tip**,
-**on-hold**, **tbd**, **proposed**, **draft**, **wip**, **mvp**,
-**blocked**, **canceled**, **error**, **warning**, **warn**
+**Any label is now supported!** The plugin automatically converts your label into a CSS class name, allowing unlimited customization. Common legacy tags like **todo**, **planned**, **in-progress**, **doing**, **done**, **tip**, **on-hold**, **tbd**, **proposed**, **draft**, **wip**, **mvp**, **blocked**, **canceled**, **error**, **warning**, **warn** still work with predefined styling.
 
 For each tag, the following colors are available: **grey**, **green**, **yellow**, **orange**, **blue**, **purple**, **red**.
 
@@ -84,83 +82,46 @@ See Examples Markdown Documents
 
 ### Tag Examples
 
-#### TODO
+#### Custom Labels (Any Text Supported)
 
-- `((tag|todo|grey))`
-- `((tag|todo|green))`
-- `((tag|todo|yellow))`
-- `((tag|todo|orange))`
-- `((tag|todo|blue))`
-- `((tag|todo|purple))`
-- `((tag|todo|red))`
+- `((tag|My Custom Task|grey))`
+- `((tag|Project Alpha|green))`
+- `((tag|Bug Fix|red))`
+- `((tag|Code Review|blue))`
+- `((tag|Design Phase|purple))`
 
-#### PLANNED
+#### Legacy Tags (Predefined Styling)
 
-- `((tag|planned|grey))`
-- `((tag|planned|green))`
-- `((tag|planned|yellow))`
-- `((tag|planned|orange))`
-- `((tag|planned|blue))`
-- `((tag|planned|purple))`
-- `((tag|planned|red))`
+- `((tag|todo|grey))` - Traditional task tag
+- `((tag|in-progress|orange))` - Work in progress
+- `((tag|done|green))` - Completed task
+- `((tag|blocked|red))` - Blocked task
 
-#### IN-PROGRESS
+#### Color Examples (Any Label + Any Color)
 
-- `((tag|in-progress|grey))`
-- `((tag|in-progress|green))`
-- `((tag|in-progress|yellow))`
-- `((tag|in-progress|orange))`
-- `((tag|in-progress|blue))`
-- `((tag|in-progress|purple))`
-- `((tag|in-progress|red))`
+- `((tag|YOUR_LABEL|grey))`
+- `((tag|YOUR_LABEL|green))`
+- `((tag|YOUR_LABEL|yellow))`
+- `((tag|YOUR_LABEL|orange))`
+- `((tag|YOUR_LABEL|blue))`
+- `((tag|YOUR_LABEL|purple))`
+- `((tag|YOUR_LABEL|red))`
 
-#### DOING
-
-- `((tag|doing|grey))`
-- `((tag|doing|green))`
-- `((tag|doing|yellow))`
-- `((tag|doing|orange))`
-- `((tag|doing|blue))`
-- `((tag|doing|purple))`
-- `((tag|doing|red))`
-
-#### DONE
-
-- `((tag|done|grey))`
-- `((tag|done|green))`
-- `((tag|done|yellow))`
-- `((tag|done|orange))`
-- `((tag|done|blue))`
-- `((tag|done|purple))`
-- `((tag|done|red))`
-
-#### TIP
-
-- `((tag|tip|grey))`
-- `((tag|tip|green))`
-- `((tag|tip|yellow))`
-- `((tag|tip|orange))`
-- `((tag|tip|blue))`
-- `((tag|tip|purple))`
-- `((tag|tip|red))`
-
-... _(repeat as necessary for remaining tags: on-hold, tbd, proposed, draft, mvp, etc.)_
+> Replace `YOUR_LABEL` with any text you want. Special characters will be automatically converted to valid CSS class names.
 
 ---
 
 ### With Arrow (using `((<tag|label|bgcolor))`)
 
-#### MVP
+#### Custom Arrow Labels
 
-- `((<tag|mvp|grey))`
-- `((<tag|mvp|green))`
-- `((<tag|mvp|yellow))`
-- `((<tag|mvp|orange))`
-- `((<tag|mvp|blue))`
-- `((<tag|mvp|purple))`
-- `((<tag|mvp|red))`
+- `((<tag|Custom Arrow|grey))`
+- `((<tag|Review Phase|orange))`
+- `((<tag|Implementation|red))`
+- `((<tag|Testing Phase|blue))`
+- `((<tag|Deployment|green))`
 
-... _(repeat as necessary for remaining tags: on-hold, tbd, proposed, draft, mvp, etc.)_
+> Arrow tags work with any label, just like regular tags!
 
 ---
 
@@ -168,7 +129,23 @@ See Examples Markdown Documents
 
 ### CSS Integration
 
-Add custom styles by modifying the `style.css` file in the plugin folder to match your preferences.
+Since any label now becomes a CSS class, you can create custom styles for your specific labels. For example:
+
+```css
+/* Custom styling for specific labels */
+.bn-tags.my-project {
+    background-color: #ff6b35;
+    border: 2px solid #ff4500;
+}
+
+.bn-tags.high-priority {
+    background-color: #dc143c;
+    font-weight: bold;
+    animation: pulse 1s infinite;
+}
+```
+
+Labels are automatically sanitized to valid CSS class names (spaces become hyphens, special characters are removed).
 
 ### Error Handling
 
