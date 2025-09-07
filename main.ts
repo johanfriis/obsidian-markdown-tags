@@ -10,9 +10,9 @@ const sanitizeForCSS = (text: string): string => {
 		.replace(/^-|-$/g, '');
 };
 
-// Regular expression to match custom tag syntax like ((tag|label|color)) or ((tag/label/color))
-// Supports both | and / as separators
-const tagSyntaxRegex = /\(\(tag(?:[\|\/])(?<label>[^\|\/\)]+)(?:[\|\/](?<color>[^\|\/\)]*))?\)\)/g;
+// Regular expression to match custom tag syntax like ((tag/label/color))
+// Uses / as separator
+const tagSyntaxRegex = /\(\(tag\/(?<label>[^\/\)]+)(?:\/(?<color>[^\/\)]*))?\)\)/g;
 
 
 const escapeHtml = (str: string): string => str.replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char] || char));

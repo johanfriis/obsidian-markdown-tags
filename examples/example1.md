@@ -12,7 +12,7 @@
 
 <!-- Tags with custom labels and default colors -->
 
-((tag|custom label)) ((tag|custom label|grey)) ((tag|custom label|orange)) ((tag|custom label|green)) ((tag|custom label|blue)) ((tag|custom label|purple)) ((tag|custom label|red)) ((tag|custom label|yellow))
+((tag/custom label)) ((tag/custom label/grey)) ((tag/custom label/orange)) ((tag/custom label/green)) ((tag/custom label/blue)) ((tag/custom label/purple)) ((tag/custom label/red)) ((tag/custom label/yellow))
 
 ## Arrow Tags Demo (Using Custom CSS)
 
@@ -20,13 +20,13 @@
 
 <!-- Arrow-style tags using the "arrow" CSS class -->
 
-((tag|todo|arrow)) ((tag|planned|arrow)) ((tag|in-progress|arrow)) ((tag|doing|arrow)) ((tag|done|arrow)) ((tag|tip|arrow)) ((tag|on-hold|arrow)) ((tag|tbd|arrow)) ((tag|proposed|arrow)) ((tag|draft|arrow)) ((tag|wip|arrow)) ((tag|mvp|arrow)) ((tag|blocked|arrow)) ((tag|canceled|arrow)) ((tag|error|arrow)) ((tag|warning|arrow)) ((tag|warn|arrow))
+((tag/todo/arrow)) ((tag/planned/arrow)) ((tag/in-progress/arrow)) ((tag/doing/arrow)) ((tag/done/arrow)) ((tag/tip/arrow)) ((tag/on-hold/arrow)) ((tag/tbd/arrow)) ((tag/proposed/arrow)) ((tag/draft/arrow)) ((tag/wip/arrow)) ((tag/mvp/arrow)) ((tag/blocked/arrow)) ((tag/canceled/arrow)) ((tag/error/arrow)) ((tag/warning/arrow)) ((tag/warn/arrow))
 
 ### Custom Arrow Labels
 
 <!-- Arrow tags with custom labels using the "arrow" CSS class -->
 
-((tag|custom arrow|arrow)) ((tag|my task|arrow)) ((tag|in review|arrow)) ((tag|testing|arrow)) ((tag|deployment|arrow))
+((tag/custom arrow/arrow)) ((tag/my task/arrow)) ((tag/in review/arrow)) ((tag/testing/arrow)) ((tag/deployment/arrow))
 
 ## Custom Color Tags Demo
 
@@ -34,20 +34,20 @@
 
 <!-- Tags with semantic color classes -->
 
-((tag|Success|success)) ((tag|Warning|warning)) ((tag|Error|error)) ((tag|Info|info)) ((tag|Accent|accent))
+((tag/Success/success)) ((tag/Warning/warning)) ((tag/Error/error)) ((tag/Info/info)) ((tag/Accent/accent))
 
 ### Custom Color Classes
 
 <!-- Demonstrates custom color class usage -->
 
-((tag|Critical Issue|critical)) ((tag|My Theme|my-theme)) ((tag|Project Alpha|project-alpha))
+((tag/Critical Issue/critical)) ((tag/My Theme/my-theme)) ((tag/Project Alpha/project-alpha))
 
 ### Complex Tag Styling
 
 <!-- Examples with custom styling combinations -->
 
-((tag|Long Label For Testing|special-theme))
-((tag|Custom Project|custom-project)) ((tag|Important Note|important))
+((tag/Long Label For Testing/special-theme))
+((tag/Custom Project/custom-project)) ((tag/Important Note/important))
 
 ## Mixed Usage and Custom Labels
 
@@ -55,4 +55,4 @@
 
 <!-- Tests various combinations of custom colors and arrow styling -->
 
-((tag|Normal Task|)) ((tag|Arrow Task|arrow)) ((tag|Success Task|success)) ((tag|Warning Arrow|warning)) ((tag|Custom Style|my-style))
+((tag/Normal Task/)) ((tag/Arrow Task/arrow)) ((tag/Success Task/success)) ((tag/Warning Arrow/warning)) ((tag/Custom Style/my-style))

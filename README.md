@@ -21,18 +21,12 @@ Use semantic color names or create your own custom color classes through CSS for
 ### 📄 Flexible Syntax
 
 
-Simple, flexible syntax options:
-
-You can use either the `|` (pipe) or `/` (slash) character as a separator between tag components:
+Simple, clean syntax using `/` as separator:
 
 ```markdown
-((tag|label))
 ((tag/label))
-((tag|label|color-name))
 ((tag/label/color-name))
 ```
-
-> **Note:** Both `|` and `/` are supported as separators. Use whichever you prefer or fits your workflow. This is especially useful when using tags within markdown tables.
 
 ### 🌈 Supports a Variety of Colors
 
@@ -51,19 +45,19 @@ Choose from predefined colors (`grey`, `green`, `orange`, etc.) or use custom he
 #### Status Tags
 
 ```markdown
-((tag|todo)) ((tag|in-progress|warning)) ((tag|done|success))
+((tag/todo)) ((tag/in-progress/warning)) ((tag/done/success))
 ```
 
 #### Arrow-Style Tags (Using Custom CSS Class)
 
 ```markdown
-((tag|planned|arrow)) ((tag|custom test|arrow))
+((tag/planned/arrow)) ((tag/custom test/arrow))
 ```
 
 #### Custom Color Classes
 
 ```markdown
-((tag|Critical Task|critical)) ((tag|My Project|my-theme)) ((tag|Urgent|urgent))
+((tag/Critical Task/critical)) ((tag/My Project/my-theme)) ((tag/Urgent/urgent))
 ```
 
 ---
@@ -80,37 +74,37 @@ See Examples Markdown Documents
 
 #### Custom Labels (Any Text Supported)
 
-- `((tag|My Custom Task|grey))`
-- `((tag|Project Alpha|green))`
-- `((tag|Bug Fix|red))`
-- `((tag|Code Review|blue))`
-- `((tag|Design Phase|purple))`
+- `((tag/My Custom Task/grey))`
+- `((tag/Project Alpha/green))`
+- `((tag/Bug Fix/red))`
+- `((tag/Code Review/blue))`
+- `((tag/Design Phase/purple))`
 
 #### Legacy Tags (Predefined Styling)
 
-- `((tag|todo|grey))` - Traditional task tag
-- `((tag|in-progress|orange))` - Work in progress
-- `((tag|done|green))` - Completed task
-- `((tag|blocked|red))` - Blocked task
+- `((tag/todo/grey))` - Traditional task tag
+- `((tag/in-progress/orange))` - Work in progress
+- `((tag/done/green))` - Completed task
+- `((tag/blocked/red))` - Blocked task
 
 #### Predefined Color Examples
 
-- `((tag|YOUR_LABEL|grey))`
-- `((tag|YOUR_LABEL|green))`  
-- `((tag|YOUR_LABEL|yellow))`
-- `((tag|YOUR_LABEL|orange))`
-- `((tag|YOUR_LABEL|blue))`
-- `((tag|YOUR_LABEL|purple))`
-- `((tag|YOUR_LABEL|red))`
+- `((tag/YOUR_LABEL/grey))`
+- `((tag/YOUR_LABEL/green))`  
+- `((tag/YOUR_LABEL/yellow))`
+- `((tag/YOUR_LABEL/orange))`
+- `((tag/YOUR_LABEL/blue))`
+- `((tag/YOUR_LABEL/purple))`
+- `((tag/YOUR_LABEL/red))`
 
 #### Semantic Color Examples (New!)
 
-- `((tag|Bug Report|critical))`
-- `((tag|Security Issue|alert))`
-- `((tag|Enhancement|success))`
-- `((tag|Documentation|info))`
-- `((tag|Needs Attention|warning))`
-- `((tag|High Priority|urgent))`
+- `((tag/Bug Report/critical))`
+- `((tag/Security Issue/alert))`
+- `((tag/Enhancement/success))`
+- `((tag/Documentation/info))`
+- `((tag/Needs Attention/warning))`
+- `((tag/High Priority/urgent))`
 
 > Replace `YOUR_LABEL` with any text and use any color name you want. Both labels and colors are automatically converted to valid CSS class names.
 
@@ -120,11 +114,11 @@ See Examples Markdown Documents
 
 #### Custom Arrow Labels
 
-- `((tag|Custom Arrow|arrow))`
-- `((tag|Review Phase|arrow))`
-- `((tag|Implementation|arrow))`
-- `((tag|Testing Phase|arrow))`
-- `((tag|Deployment|arrow))`
+- `((tag/Custom Arrow/arrow))`
+- `((tag/Review Phase/arrow))`
+- `((tag/Implementation/arrow))`
+- `((tag/Testing Phase/arrow))`
+- `((tag/Deployment/arrow))`
 
 > Arrow tags work with any label by using the `arrow` color class and adding the corresponding CSS!
 
