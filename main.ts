@@ -2,7 +2,7 @@ import { Plugin, MarkdownPostProcessorContext } from "obsidian";
 import { EditorView, Decoration, DecorationSet, ViewPlugin, ViewUpdate } from "@codemirror/view";
 import { RangeSetBuilder } from "@codemirror/state";
 
-// Function to sanitize any string for use as CSS class name
+// Convert any text to valid CSS class name (spaces->hyphens, remove special chars)
 const sanitizeForCSS = (text: string): string => {
 	return text.toLowerCase()
 		.replace(/[^a-z0-9-_]/g, '-')
@@ -10,21 +10,16 @@ const sanitizeForCSS = (text: string): string => {
 		.replace(/^-|-$/g, '');
 };
 
-// Regular expression to match custom tag syntax like ((tag/label/color))
-// Uses / as separator
+// Match ((tag/label/color)) syntax and extract label/color parts
 const tagSyntaxRegex = /\(\(tag\/(?<label>[^\/\)]+)(?:\/(?<color>[^\/\)]*))?\)\)/g;
 
-
+// Prevent XSS by escaping HTML entities for innerHTML insertion
 const escapeHtml = (str: string): string => str.replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char] || char));
 
+// Create CodeMirror decoration with CSS classes for tag styling
 function generateTagDecoration(label: string, color?: string): Decoration {
-
-	// Sanitize label to create a valid CSS class name
 	const labelClass = sanitizeForCSS(label);
-	// Sanitize color name if provided
 	const colorClass = color ? sanitizeForCSS(color) : '';
-
-	// Combine classes
 	const combinedClasses = `bn-tags ${labelClass} ${colorClass}`.trim();
 
 	// Return the decoration with just CSS classes
@@ -35,15 +30,12 @@ function generateTagDecoration(label: string, color?: string): Decoration {
 
 export default class tagsPlugin extends Plugin {
 	async onload() {
-		// Register the CodeMirror plugin for the editor
 		this.registerEditorExtension(this.editModeTagsHighlighter());
-
-		// Register the MarkdownPostProcessor for reader view
 		this.registerMarkdownPostProcessor(this.viewModeTagsHighlighter());
 	}
 
+	// Handle tag styling in edit mode using CodeMirror decorations
 	private editModeTagsHighlighter() {
-		// Define the ViewPlugin
 		return ViewPlugin.fromClass(class {
 			decorations: DecorationSet;
 
@@ -67,7 +59,6 @@ export default class tagsPlugin extends Plugin {
 					const text = view.state.doc.sliceString(from, to);
 					let match;
 
-					// Function to check if a position is inside a code block
 					const isInCodeBlock = (pos: number): boolean => {
 						const line = view.state.doc.lineAt(pos);
 						let inCodeBlock = false;
@@ -85,25 +76,21 @@ export default class tagsPlugin extends Plugin {
 					};
 
 					while ((match = tagSyntaxRegex.exec(text)) !== null) {
-						const start = from + (match.index ?? 0); // Start of the match
-						const end = start + match[0].length; // End of the match
+						const start = from + (match.index ?? 0);
+						const end = start + match[0].length;
 
-						// Check if the cursor is within the match range or if the match is inside a code block
+						// Skip if cursor is editing this tag or tag is in code block
 						if (cursorPos >= start && cursorPos <= end || (isInCodeBlock(start))) {
-							continue; // Skip adding decorations if the cursor is within the range or inside a code or callout block
+							continue;
 						}
 
-						// Extract named groups with default values
 						const { label = '', color = '' } = match.groups ?? {};
-
 						const escapedLabel = escapeHtml(label);
 	
 						// Apply decoration to hide the leading part
 						builder.add(start, start + match[0].indexOf(label), Decoration.mark({ class: "bn-hidden" }));
-
 						// Apply decoration to the inner text (label)
 						builder.add(start + match[0].indexOf(label), start + match[0].indexOf(label) + label.length, generateTagDecoration(escapedLabel, color));
-
 						// Apply decoration to hide the trailing part
 						builder.add(start + match[0].indexOf(label) + label.length, end, Decoration.mark({ class: "bn-hidden" }));
 					}
@@ -114,36 +101,32 @@ export default class tagsPlugin extends Plugin {
 		}, { decorations: v => v.decorations });
 	}
 
+	// Handle tag styling in reading view by processing HTML content
 	private viewModeTagsHighlighter() {
 		return (el: HTMLElement, ctx: MarkdownPostProcessorContext) => {
 			const tags = Array.from(el.querySelectorAll("p, li, span, div, td, th"));
 
 			tags.forEach(tagElement => {
-				const originalText = tagElement.textContent; // Use textContent to get plain text
-				if (!originalText) return; // Skip if there's no text
+				const originalText = tagElement.textContent;
+				if (!originalText) return;
 
 				let match: RegExpExecArray | null;
-				let updatedHTML = tagElement.innerHTML; // Start with the existing HTML
-				let matchFound = false; // Initialize the flag
+				let updatedHTML = tagElement.innerHTML;
+				let matchFound = false;
 
 				// Process matches in the text content
 				while ((match = tagSyntaxRegex.exec(originalText)) !== null) {
 					matchFound = true;
-					// Extract named groups with default values
 					const { label = "", color = "" } = match.groups ?? {};
 					const escapedLabel = escapeHtml(label);
-
-					// Generate the styled decoration
 					const decoration = generateTagDecoration(escapedLabel, color);
-
-					// Replace tag syntax with styled span
 					const replacement = `<span class="${decoration.spec.class}">${escapedLabel}</span>`;
-					const escapedMatch = escapeHtml(match[0]); // Escape the match to handle HTML entities
+					const escapedMatch = escapeHtml(match[0]);
 					updatedHTML = updatedHTML.replace(escapedMatch, replacement);
 				}
 
 				if (matchFound) {
-					tagElement.innerHTML = updatedHTML; // Process this line only if a match was found
+					tagElement.innerHTML = updatedHTML;
 				}
 			});
 		};

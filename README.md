@@ -10,27 +10,24 @@ Add visual flair to your Markdown documents with custom tag styles! **Tags for M
 
 ## Features
 
-### 🎨 Styled Tags
+### ✨ Simple Syntax
 
-Highlight and style tags with ease using predefined or custom styles.
-
-### 🖌️ Customizable Colors
-
-Use semantic color names or create your own custom color classes through CSS for unlimited styling options.
-
-### 📄 Flexible Syntax
-
-
-Simple, clean syntax using `/` as separator:
+Transform any text into styled tags:
 
 ```markdown
 ((tag/label))
-((tag/label/color-name))
+((tag/label/color-class))
 ```
 
-### 🌈 Supports a Variety of Colors
+### 🎨 CSS-Based Styling  
 
-Choose from predefined colors (`grey`, `green`, `orange`, etc.) or use custom hex codes to suit your design preferences.
+Everything becomes CSS classes for unlimited customization:
+- `((tag/my task))` → `.bn-tags.my-task`
+- `((tag/urgent/warning))` → `.bn-tags.urgent.warning`
+
+### 🌈 Built-in Semantic Colors
+
+Five ready-to-use colors: `success`, `warning`, `error`, `info`, `accent`
 
 ---
 
@@ -40,189 +37,76 @@ Choose from predefined colors (`grey`, `green`, `orange`, etc.) or use custom he
 2. **Enable** the plugin in the Obsidian settings.
 3. **Add Tags** in your Markdown files using the syntax below.
 
-### Basic Syntax Examples
-
-#### Status Tags
+### Quick Examples
 
 ```markdown
-((tag/todo)) ((tag/in-progress/warning)) ((tag/done/success))
-```
-
-#### Arrow-Style Tags (Using Custom CSS Class)
-
-```markdown
-((tag/planned/arrow)) ((tag/custom test/arrow))
-```
-
-#### Custom Color Classes
-
-```markdown
-((tag/Critical Task/critical)) ((tag/My Project/my-theme)) ((tag/Urgent/urgent))
+((tag/todo))                    <!-- Basic tag -->
+((tag/urgent/warning))          <!-- With built-in color -->
+((tag/my project/custom))       <!-- With custom color class -->
 ```
 
 ---
 
-## Tags and Colors
+## How It Works
 
-**Any label is now supported!** The plugin automatically converts your label into a CSS class name, allowing unlimited customization. Common legacy tags like **todo**, **planned**, **in-progress**, **doing**, **done**, **tip**, **on-hold**, **tbd**, **proposed**, **draft**, **wip**, **mvp**, **blocked**, **canceled**, **error**, **warning**, **warn** still work with predefined styling.
+The plugin transforms `((tag/label/color))` into `<span class="bn-tags label color">label</span>`.
 
-**Any color name is now supported!** Use semantic names like **success**, **warning**, **error**, **info**, **accent**, or create your own custom color classes. If no CSS exists for your color name, it will use the default theme styling.
+**Built-in Colors**: `success` (green), `warning` (orange), `error` (red), `info` (blue), `accent` (theme color)
 
-See Examples Markdown Documents
+**Everything else is CSS classes** - add your own styling for any custom color names.
 
-### Tag Examples
+## CSS Customization
 
-#### Custom Labels (Any Text Supported)
-
-- `((tag/My Custom Task/grey))`
-- `((tag/Project Alpha/green))`
-- `((tag/Bug Fix/red))`
-- `((tag/Code Review/blue))`
-- `((tag/Design Phase/purple))`
-
-#### Legacy Tags (Predefined Styling)
-
-- `((tag/todo/grey))` - Traditional task tag
-- `((tag/in-progress/orange))` - Work in progress
-- `((tag/done/green))` - Completed task
-- `((tag/blocked/red))` - Blocked task
-
-#### Predefined Color Examples
-
-- `((tag/YOUR_LABEL/grey))`
-- `((tag/YOUR_LABEL/green))`  
-- `((tag/YOUR_LABEL/yellow))`
-- `((tag/YOUR_LABEL/orange))`
-- `((tag/YOUR_LABEL/blue))`
-- `((tag/YOUR_LABEL/purple))`
-- `((tag/YOUR_LABEL/red))`
-
-#### Semantic Color Examples (New!)
-
-- `((tag/Bug Report/critical))`
-- `((tag/Security Issue/alert))`
-- `((tag/Enhancement/success))`
-- `((tag/Documentation/info))`
-- `((tag/Needs Attention/warning))`
-- `((tag/High Priority/urgent))`
-
-> Replace `YOUR_LABEL` with any text and use any color name you want. Both labels and colors are automatically converted to valid CSS class names.
-
----
-
-### Arrow-Style Tags (Using Custom CSS Class)
-
-#### Custom Arrow Labels
-
-- `((tag/Custom Arrow/arrow))`
-- `((tag/Review Phase/arrow))`
-- `((tag/Implementation/arrow))`
-- `((tag/Testing Phase/arrow))`
-- `((tag/Deployment/arrow))`
-
-> Arrow tags work with any label by using the `arrow` color class and adding the corresponding CSS!
-
----
-
-## Advanced Options
-
-### CSS Integration
-
-Since both labels and colors now become CSS classes, you have unlimited customization possibilities:
+Add custom styling for any label or color name:
 
 ```css
-/* Custom styling for specific labels */
-.bn-tags.my-project {
-    background-color: #ff6b35;
-    border: 2px solid #ff4500;
+/* Style specific labels */
+.bn-tags.urgent { 
+    background-color: #dc2626; 
+    animation: pulse 2s infinite; 
 }
 
-.bn-tags.high-priority {
-    background-color: #dc143c;
+.bn-tags.completed { 
+    background-color: #16a34a; 
+    text-decoration: line-through; 
+}
+
+/* Style custom color classes */  
+.bn-tags.priority {
+    background-color: #f59e0b;
     font-weight: bold;
-    animation: pulse 1s infinite;
 }
 
-/* Custom styling for semantic color names */
 .bn-tags.critical {
     background-color: #dc2626;
     color: white;
-    font-weight: bold;
+    border: 2px solid #991b1b;
 }
 
-.bn-tags.success {
-    background-color: #16a34a;
-    color: white;
-}
-
-.bn-tags.warning {
-    background-color: #ea580c;
-    color: white;
-}
-
-.bn-tags.info {
-    background-color: #0284c7;
-    color: white;
-}
-
-/* Example: Arrow-style tags using custom CSS class */
+/* Arrow-style example */
 .bn-tags.arrow {
-    all: unset;
-    all: inherit;
-    display: inline-block;
-    height: 20px;
-    line-height: 20px;
-    right: -6px;
     position: relative;
-    margin: 0 8px 0 10px;
-    padding: 0 10px 0 12px;
-    border-bottom-left-radius: 2px;
-    border-top-left-radius: 2px;
-    border-bottom-right-radius: 3px;
-    border-top-right-radius: 3px;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-    color: white !important;
-    font-size: 14px;
-    font-weight: 500;
-    text-decoration: none;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-    -webkit-text-fill-color: #ffffff !important;
-    background-color: var(--color-l-gray-80);
+    margin-left: 15px;
+    border-radius: 0 4px 4px 0;
 }
 
 .bn-tags.arrow:before {
     content: "";
     position: absolute;
-    top: 0;
-    left: -11px;
-    width: 0;
-    height: 0;
-    border-color: transparent;
-    border-radius: 15%;
-    border-style: solid;
-    border-width: 10px 12px 10px 0;
+    left: -8px;
+    width: 0; height: 0;
+    border: 10px solid transparent;
     border-right-color: var(--color-l-gray-80);
-}
-
-.bn-tags.arrow:after {
-    content: "";
-    position: absolute;
-    top: 7.5px;
-    left: .5px;
-    float: left;
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background: white;
-    box-shadow: -1px -1px 2px rgba(0, 0, 0, 0.4);
 }
 ```
 
-Both labels and colors are automatically sanitized to valid CSS class names (spaces become hyphens, special characters are removed).
+**Usage:**
+- `((tag/urgent task/urgent))` → `.bn-tags.urgent-task.urgent`
+- `((tag/done/completed))` → `.bn-tags.done.completed`  
+- `((tag/next/arrow))` → `.bn-tags.next.arrow`
 
-### Error Handling
+Text is sanitized: spaces→hyphens, special chars removed.
 
-The plugin defaults to `grey` when invalid colors are detected to ensure a consistent and polished look.
 
 ---
 
